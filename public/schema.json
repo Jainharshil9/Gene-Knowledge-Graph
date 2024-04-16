@@ -1,700 +1,4157 @@
 {
-	"nodes": [
-		{
-			"node": "Drug",
-			"pathname": "/",
-			"example": ["esmolol", "buspirone"],
-			"palette": {
-				"name": "oranges",
-				"main": "#ffb74d",
-				"contrastText": "#000"
-			},
-			"relation": ["SigCom LINCS Drug-to-Gene (downregulates)", "SigCom LINCS Drug-to-Gene (upregulates)"],
-			"display": [
-				{
-					"label": "Drug ID",
-					"text": "${id}",
-					"type": "link",
-					"href": "https://pubchem.ncbi.nlm.nih.gov/compound/${id.replace('CID:', '')}"
-				},
-				{
-					"label": "GDLPA",
-					"text": "${label}",
-					"type": "link",
-					"href": "https://cfde-gene-pages.cloud/drug/${label}?CF=false&PS=true"
-				}
-			],
-			"search": [
-				"label",
-				"id"
-			]
-		},
-		{
-			"node": "Gene",
-			"pathname": "/",
-			"example": ["LUM", "MAPK1"],
-			"relation": [
-				"BioGRID",
-				"SigCom LINCS Drug-to-Gene (downregulates)",
-				"SigCom LINCS Drug-to-Gene (upregulates)",
-				"ARCHS4 (negatively correlated)",
-				"ARCHS4 (positively correlated)",
-				"Metabolomics Workbench",
-				"GlyGen",
-				"HuBMAP"
-			],
-			"palette": {
-				"name": "greens",
-				"main": "#aed581",
-				"contrastText": "#000"
-			},
-			"display": [
-				{
-					"label": "Gene ID",
-					"text": "${id}",
-					"type": "link",
-					"href": "https://www.ncbi.nlm.nih.gov/gene/${id}"
-				},
-				{
-					"label": "ARCHS4",
-					"text": "${label}",
-					"type": "link",
-					"href": "https://maayanlab.cloud/archs4/gene/${label}"
-				},
-				{
-					"label": "GDLPA",
-					"text": "${label}",
-					"type": "link",
-					"href": "https://cfde-gene-pages.cloud/gene/${label}?CF=false&PS=true&Ag=true"
-				}
-			],
-			"search": [
-				"label",
-				"id"
-			]
-		},
-		{
-			"node": "Glycan",
-			"pathname": "/",
-			"example": ["G00912UN", "G22140GZ"],
-			"relation": [
-				"GlyGen"
-			],
-			"palette": {
-				"name": "purples",
-				"main": "#b39ddb",
-				"contrastText": "#000"
-			},
-			"display": [
-				{
-					"label": "Byonic",
-					"text": "${byonic}",
-					"type": "text"
-				},
-				{
-					"label": "Glycan Type",
-					"text": "${glycan_type}",
-					"type": "text"
-				},
-				{
-					"label": "mass",
-					"text": "${mass}",
-					"type": "text"
-				},
-				{
-					"label": "monosaccharides",
-					"field": "monosaccharides",
-					"type": "int"
-				},
-				{
-					"label": "Glygen page",
-					"href": "${uri}",
-					"text": "${id}",
-					"type": "link"
-				},
-				{
-					"label": "Glytoucan page",
-					"href": "${glytoucan_url}",
-					"text": "${id}",
-					"type": "link"
-				}
-			],
-			"search": [
-				"label",
-				"id",
-				"byonic",
-				"glycan_type"
-			]
-		},
-		{
-			"node": "Metabolite",
-			"pathname": "/",
-			"example": ["L-Glutamate", "Choline"],
-			"relation": [
-				"Metabolomics Workbench"
-			],
-			"palette": {
-				"name": "cyans",
-				"main": "#26c6da",
-				"contrastText": "#000"
-			},
-			"display": [
-				{
-					"label": "Metabolite ID",
-					"text": "${id}",
-					"type": "link",
-					"href": "https://www.genome.jp/entry/${id}"
-				},
-				{
-					"label": "Synonyms",
-					"text": "${synonyms.join(', ')}",
-					"type": "text"
-				}
-			],
-			"search": [
-				"label",
-				"id"
-			]
-		},
-		{
-			"node": "Cell or Tissue (HuBMAP)",
-			"pathname": "/",
-			"example": ["Brain", "CD4 T cell memory"],
-			"relation": [
-				"HuBMAP"
-			],
-			"palette": {
-				"name": "teals",
-				"main": "#4db6ac",
-				"contrastText": "#000"
-			},
-			"display": [
-				{
-					"label": "Ontology ID",
-					"text": "${id}",
-					"type": "text"
-				},
-				{
-					"label": "Resource",
-					"text": "HuBMAP",
-					"type": "link",
-					"href": "https://hubmapconsortium.github.io/ccf-asct-reporter/"
-				}
-			],
-			"search": [
-				"label",
-				"id"
-			]
-		},
-		{
-			"node": "Tissue Group (GTEx)",
-			"pathname": "/",
-			"example": ["Liver_subj-age_30-39", "Pancreas_subj-age_50-59"],
-			"relation": [
-				"GTEx (up)",
-				"GTEx (down)"
-			],
-			"palette": {
-				"name": "pinks",
-				"main": "#f48fb1",
-				"contrastText": "#000"
-			},
-			"display": [
-				{
-					"label": "Tissue",
-					"text": "${tissue}",
-					"type": "text"
-				},
-				{
-					"label": "Ontology ID",
-					"text": "${id}",
-					"type": "text"
-				},
-				{
-					"label": "Age group",
-					"text": "${age_group}",
-					"type": "text"
-				}
-			],
-			"search": [
-				"label",
-				"tissue",
-				"age_group"
-			]
-		}
-	],
-	"edges": [
-		{
-			"match": ["BioGRID"],
-			"selected": true,
-			"order": ["Confidence_Values", "DESC"],
-			"display": [
-				{
-					"label": "ID",
-					"text": "${id}",
-					"type": "text"
-				},
-				{
-					"label": "Name",
-					"text": "${label}",
-					"type": "text"
-				},
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Interaction Detection Method",
-					"text": "${Interaction_Detection_Method}",
-					"type": "text"
-				},
-				{
-					"label": "Pubmed",
-					"text": "${Publication_Identifiers}",
-					"type": "text"
-				},
-				{
-					"label": "Publication First Author",
-					"text": "${Publication_1st_Author}",
-					"type": "text"
-				},
-				{
-					"label": "Confidence Value",
-					"text": "${Confidence_Values}",
-					"type": "text"
-				},
-				{
-					"label": "Resource",
-					"text": "BioGRID",
-					"href": "https://thebiogrid.org/",
-					"type": "link"
-				}	
-			]
-		},
-		{
-			"match": ["ARCHS4 (negatively correlated)"],
-			"selected": true,
-			"palette": {
-				"main": "#f8bbd0"
-			},
-			"order": ["correlation_coefficient", "ASC"],
-			"display": [
-				{
-					"label": "ID",
-					"text": "${id}",
-					"type": "text"
-				},
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Correlation Coefficient",
-					"text": "${correlation_coefficient}",
-					"type": "number"
-				},
-				{
-					"label": "Resource",
-					"text": "ARCHS4",
-					"href": "https://maayanlab.cloud/archs4/",
-					"type": "link"
-				}	
-			]
-		},
-		{
-			"match": ["ARCHS4 (positively correlated)"],
-			"selected": true,
-			"palette": {
-				"main": "#4fc3f7"
-			},
-			"order": ["correlation_coefficient", "DESC"],
-			"display": [
-				{
-					"label": "ID",
-					"text": "${id}",
-					"type": "text"
-				},
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Correlation Coefficient",
-					"text": "${correlation_coefficient}",
-					"type": "number"
-				},
-				{
-					"label": "Resource",
-					"text": "ARCHS4",
-					"href": "https://maayanlab.cloud/archs4/",
-					"type": "link"
-				}		
-			]
-		},
-		{
-			"match": ["SigCom LINCS Drug-to-Gene (downregulates)"],
-			"selected": true,
-			"palette": {
-				"main": "#f8bbd0"
-			},
-			"order": ["mean_CD_coefficient", "ASC"],
-			"display": [
-				{
-					"label": "ID",
-					"text": "${id}",
-					"type": "text"
-				},
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Correlation Coefficient",
-					"text": "${mean_CD_coefficient}",
-					"type": "number"
-				},
-				{
-					"label": "Resource",
-					"text": "SigCom LINCS",
-					"href": "https://maayanlab.cloud/sigcom-lincs/",
-					"type": "link"
-				}	
-			]
-		},
-		{
-			"match": ["SigCom LINCS Drug-to-Gene (upregulates)"],
-			"selected": true,
-			"palette": {
-				"main": "#4fc3f7"
-			},
-			"order": ["mean_CD_coefficient", "DESC"],
-			"display": [
-				{
-					"label": "ID",
-					"text": "${id}",
-					"type": "text"
-				},
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Correlation Coefficient",
-					"text": "${mean_CD_coefficient}",
-					"type": "number"
-				},
-				{
-					"label": "Resource",
-					"text": "SigCom LINCS",
-					"href": "https://maayanlab.cloud/sigcom-lincs/",
-					"type": "link"
-				}	
-			]
-		},
-		{
-			"match": ["Metabolomics Workbench"],
-			"selected": true,
-			"display": [
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Resource",
-					"text": "Metabolomics Workbench",
-					"href": "https://www.metabolomicsworkbench.org/",
-					"type": "link"
-				}	
-			]
-		},
-		{
-			"match": ["GlyGen"],
-			"selected": true,
-			"display": [
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Resource",
-					"text": "GlyGen",
-					"href": "https://glygen.org",
-					"type": "link"
-				}	
-			]
-		},
-		{
-			"match": ["HuBMAP"],
-			"selected": true,
-			"display": [
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Resource",
-					"text": "HuBMAP",
-					"href": "https://hubmapconsortium.github.io/ccf-asct-reporter/",
-					"type": "link"
-				}	
-			]
-		},
-		{
-			"match": ["GTEx (up)"],
-			"selected": false,
-			"palette": {
-				"main": "#4fc3f7"
-			},
-			"display": [
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Resource",
-					"text": "GTEx",
-					"href": "https://gtexportal.org/home/",
-					"type": "link"
-				}	
-			]
-		},
-		{
-			"match": ["GTEx (down)"],
-			"selected": false,
-			"palette": {
-				"main": "#f8bbd0"
-			},
-			"display": [
-				{
-					"label": "Source Label",
-					"text": "${source_label}",
-					"type": "text"
-				},
-				{
-					"label": "Target Label",
-					"text": "${target_label}",
-					"type": "text"
-				},
-				{
-					"label": "Resource",
-					"text": "GTEx",
-					"href": "https://gtexportal.org/home/",
-					"type": "link"
-				}
-			]
-		}
-	],	
-	"header": {
-		"title": "Gene-Centric CFDE Knowledge Graph",
-		"icon": {
-			"favicon": "${PREFIX}/favicon.ico",
-			"src": "${PREFIX}/static/icons/CFDE-logo.png",
-			"alt": "CFDE logo",
-			"width": 100,
-			"height": 100
-		},
-		"tabs": [
-			{
-				"endpoint": "/",
-				"label": "Knowledge Graph",
-				"type": "page"
-			},
-			{
-				"endpoint": "/downloads",
-				"label": "Download Assets",
-				"type": "markdown",
-				"src": "https://s3.amazonaws.com/maayan-kg/ingestion/download.md"
-			}
-		],
-		"subheader": [
-			{
-				"label": "LINCS",
-				"icon": "${PREFIX}/static/resources/lincs.gif",
-				"height": 120,
-				"width": 120,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["LINCS (downregulates)", "LINCS (upregulates)"]
-				}
-			},
-			{
-				"label": "Metabolomics Workbench",
-				"icon": "${PREFIX}/static/resources/metabolomics.png",
-				"height": 100,
-				"width": 100,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["Metabolomics Workbench"]
-				}
-			},
-			{
-				"label": "GlyGen",
-				"icon": "${PREFIX}/static/resources/glygen.png",
-				"height": 100,
-				"width": 100,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["GlyGen"]
-				}
-			},
-			{
-				"label": "GTEx",
-				"icon": "${PREFIX}/static/resources/gtex.png",
-				"height": 80,
-				"width": 80,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["GTEx (up)", "GTEx (down)"]
-				}
-			},
-			{
-				"label": "IDG",
-				"icon": "${PREFIX}/static/resources/idg.png",
-				"height": 100,
-				"width": 100,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["IDG"]
-				}
-			},
-			{
-				"label": "HuBMAP",
-				"icon": "${PREFIX}/static/resources/hubmap.png",
-				"height": 100,
-				"width": 100,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["HuBMAP"]
-				}
-			},
-			{
-				"label": "ERCC",
-				"icon": "${PREFIX}/static/resources/exrna.png",
-				"height": 100,
-				"width": 100,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["ERCC"]
-				}
-			},
-			{
-				"label": "BioGRID",
-				"icon": "${PREFIX}/static/resources/biogrid.png",
-				"height": 80,
-				"width": 80,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["BioGRID"]
-				}
-			},
-			{
-				"label": "ARCHS4",
-				"icon": "${PREFIX}/static/resources/archs.png",
-				"height": 100,
-				"width": 100,
-				"onClick": {
-					"type": "function",
-					"name": "filter_relation"
-				},
-				"props": {
-					"selected": ["ARCHS4 (negatively correlated)", "ARCHS4 (positively correlated)"]
-				}
-			}
-		]
-	},
-	"footer": [
-		{
-			"type": "github",
-			"key": "github",
-			"code": "https://github.com/maayanLab/gene-knowledge-graph",
-			"issues": "https://github.com/MaayanLab/Gene-Knowledge-Graph/issues"
-		},
-		{
-			"type": "icon",
-			"key": "cfde_icon",
-			"src": "${PREFIX}/static/icons/CFDE-logo.png",
-			"alt": "CFDE",
-			"href": "https://www.nih-cfde.org/",
-			"height": 100,
-			"width": 100
-		}
-	]
+    "nodes": [
+        {
+            "id": "stringdb:9606.ENSP00000269571",
+            "name": "ERBB2",
+            "ncbi_id": "NCBI_ID_0"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000229758",
+            "name": "FBXO5",
+            "ncbi_id": "NCBI_ID_1"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000267430",
+            "name": "FANCM",
+            "ncbi_id": "NCBI_ID_2"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000314505",
+            "name": "MCM9",
+            "ncbi_id": "NCBI_ID_3"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000257700",
+            "name": "RINT1",
+            "ncbi_id": "NCBI_ID_4"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000419881",
+            "name": "RAD51B",
+            "ncbi_id": "NCBI_ID_5"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000259008",
+            "name": "BRIP1",
+            "ncbi_id": "NCBI_ID_6"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000347232",
+            "name": "BLM",
+            "ncbi_id": "NCBI_ID_7"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000369857",
+            "name": "ABRAXAS1",
+            "ncbi_id": "NCBI_ID_8"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000306682",
+            "name": "PPM1D",
+            "ncbi_id": "NCBI_ID_9"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000257430",
+            "name": "APC",
+            "ncbi_id": "NCBI_ID_10"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000261769",
+            "name": "CDH1",
+            "ncbi_id": "NCBI_ID_11"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000372023",
+            "name": "CHEK2",
+            "ncbi_id": "NCBI_ID_12"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000265849",
+            "name": "PMS2",
+            "ncbi_id": "NCBI_ID_13"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000339637",
+            "name": "BRAT1",
+            "ncbi_id": "NCBI_ID_14"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000342924",
+            "name": "MCPH1",
+            "ncbi_id": "NCBI_ID_15"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000382628",
+            "name": "RBBP8",
+            "ncbi_id": "NCBI_ID_16"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000361021",
+            "name": "PTEN",
+            "ncbi_id": "NCBI_ID_17"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000343412",
+            "name": "BABAM2",
+            "ncbi_id": "NCBI_ID_18"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000234420",
+            "name": "MSH6",
+            "ncbi_id": "NCBI_ID_19"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000231790",
+            "name": "MLH1",
+            "ncbi_id": "NCBI_ID_20"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000368100",
+            "name": "RAD50",
+            "ncbi_id": "NCBI_ID_21"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000352408",
+            "name": "BABAM1",
+            "ncbi_id": "NCBI_ID_22"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000399851",
+            "name": "POLG",
+            "ncbi_id": "NCBI_ID_23"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000357979",
+            "name": "NR2E1",
+            "ncbi_id": "NCBI_ID_24"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000289081",
+            "name": "FANCC",
+            "ncbi_id": "NCBI_ID_25"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000493712",
+            "name": "RAD51",
+            "ncbi_id": "NCBI_ID_26"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000419665",
+            "name": "SSBP1",
+            "ncbi_id": "NCBI_ID_27"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000500891",
+            "name": "MUTYH",
+            "ncbi_id": "NCBI_ID_28"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000325863",
+            "name": "MRE11",
+            "ncbi_id": "NCBI_ID_29"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000493555",
+            "name": "TEX15",
+            "ncbi_id": "NCBI_ID_30"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000450540",
+            "name": "SERPINA3",
+            "ncbi_id": "NCBI_ID_31"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000435506",
+            "name": "POLN",
+            "ncbi_id": "NCBI_ID_32"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000261584",
+            "name": "PALB2",
+            "ncbi_id": "NCBI_ID_33"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000269305",
+            "name": "TP53",
+            "ncbi_id": "NCBI_ID_34"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000229304",
+            "name": "APOBEC1",
+            "ncbi_id": "NCBI_ID_35"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000278616",
+            "name": "ATM",
+            "ncbi_id": "NCBI_ID_36"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000336701",
+            "name": "RAD51C",
+            "ncbi_id": "NCBI_ID_37"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000352271",
+            "name": "XRCC2",
+            "ncbi_id": "NCBI_ID_38"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000323099",
+            "name": "ATRIP",
+            "ncbi_id": "NCBI_ID_39"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000418960",
+            "name": "BRCA1",
+            "ncbi_id": "NCBI_ID_40"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000233146",
+            "name": "MSH2",
+            "ncbi_id": "NCBI_ID_41"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000324856",
+            "name": "STK11",
+            "ncbi_id": "NCBI_ID_42"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000287647",
+            "name": "FANCD2",
+            "ncbi_id": "NCBI_ID_43"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000265433",
+            "name": "NBN",
+            "ncbi_id": "NCBI_ID_44"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000369497",
+            "name": "BRCA2",
+            "ncbi_id": "NCBI_ID_45"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000351015",
+            "name": "NF1",
+            "ncbi_id": "NCBI_ID_46"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000416739",
+            "name": "RECQL",
+            "ncbi_id": "NCBI_ID_47"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000260947",
+            "name": "BARD1",
+            "ncbi_id": "NCBI_ID_48"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000337088",
+            "name": "MEN1",
+            "ncbi_id": "NCBI_ID_49"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000290295",
+            "name": "HOXB13",
+            "ncbi_id": "NCBI_ID_50"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000228843",
+            "name": "RAD51AP1",
+            "ncbi_id": "NCBI_ID_51"
+        },
+        {
+            "id": "stringdb:9606.ENSP00000466399",
+            "name": "RAD51D",
+            "ncbi_id": "NCBI_ID_52"
+        }
+    ],
+    "edges": [
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 66.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000260947",
+            "score": 65.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 72.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000229758",
+            "score": 68.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 51.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 79.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000261584",
+            "score": 95.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 72.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 63.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 62.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 66.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000259008",
+            "score": 63.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 85.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 71.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 69.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000265433",
+            "score": 51.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000228843",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 48.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000229304",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 57.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000229758",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 56.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000229758",
+            "target": "stringdb:9606.ENSP00000260947",
+            "score": 50.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000229758",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 60.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000229758",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 43.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 55.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 70.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 54.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 54.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 83.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 92.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 89.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000314505",
+            "score": 92.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000265433",
+            "score": 89.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000290295",
+            "score": 43.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000269571",
+            "score": 62.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 64.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 54.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 73.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 85.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 99.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000259008",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 83.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 82.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 97.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 48.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 82.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 96.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000260947",
+            "score": 78.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000265849",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000257430",
+            "score": 43.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000261769",
+            "score": 57.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000399851",
+            "score": 50.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 55.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000233146",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 60.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 76.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 61.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 95.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000261584",
+            "score": 89.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000231790",
+            "target": "stringdb:9606.ENSP00000234420",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000265849",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 96.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 72.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 63.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000260947",
+            "score": 80.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000261584",
+            "score": 89.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000234420",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000261769",
+            "score": 42.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 97.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 84.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 95.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 90.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 84.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 52.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000259008",
+            "score": 79.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 81.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 93.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 72.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 64.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000269571",
+            "score": 72.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000314505",
+            "score": 93.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000265433",
+            "score": 82.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 94.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 43.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 94.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000290295",
+            "score": 45.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 69.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 68.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 83.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 53.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000269571",
+            "score": 57.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 54.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 71.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 77.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000233146",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 59.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 46.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 63.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000265433",
+            "score": 90.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 74.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 59.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 52.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 92.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 55.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 89.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000290295",
+            "score": 44.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000260947",
+            "score": 92.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 82.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000314505",
+            "score": 89.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 98.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 63.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 96.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 86.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000265849",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 62.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 62.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 75.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000261584",
+            "score": 89.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000259008",
+            "score": 57.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 54.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 84.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 87.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 89.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257430",
+            "target": "stringdb:9606.ENSP00000261769",
+            "score": 92.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 97.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 80.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257430",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 61.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000234420",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 57.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257430",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 47.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 49.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 53.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257430",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 55.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 51.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000260947",
+            "score": 49.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000261584",
+            "score": 50.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 55.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 84.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000265849",
+            "score": 41.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 48.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 50.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000257700",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 46.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 67.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 99.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 67.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 94.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000352408",
+            "score": 40.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 95.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 83.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 72.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000265849",
+            "score": 99.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 93.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 58.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000261584",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 95.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 80.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 96.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 64.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000260947",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 40.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 91.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 90.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 46.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000265433",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 68.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 53.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 75.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000259008",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 82.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 67.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 64.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 85.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000265433",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000269571",
+            "score": 45.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 69.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 47.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 88.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 60.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 74.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 71.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000261584",
+            "score": 98.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 58.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 41.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 96.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 78.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 99.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000265849",
+            "score": 73.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 98.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000352408",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 71.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 94.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 93.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 72.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 65.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 95.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000493555",
+            "score": 43.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000260947",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 94.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 94.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 94.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 90.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000290295",
+            "score": 52.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 49.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 89.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000265433",
+            "score": 80.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 57.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 73.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 84.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000269571",
+            "score": 58.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 59.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 52.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 92.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 70.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 99.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 94.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000352408",
+            "score": 49.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 72.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 73.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 87.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 85.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 60.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 55.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000265849",
+            "score": 94.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261584",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 66.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 85.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 48.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 93.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 59.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000450540",
+            "score": 48.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000269571",
+            "score": 97.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 72.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 47.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 47.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000261769",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 67.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 56.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 92.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 72.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 89.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 93.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 81.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 79.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 85.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 77.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000352408",
+            "score": 65.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 92.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 76.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 59.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 52.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 70.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 90.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000342924",
+            "score": 43.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265433",
+            "target": "stringdb:9606.ENSP00000265849",
+            "score": 49.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 83.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 95.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 68.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 80.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 88.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 79.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 94.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 73.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 93.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 76.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 74.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 85.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000290295",
+            "score": 47.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 68.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 40.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 90.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 78.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 70.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 57.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 42.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000267430",
+            "score": 68.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 66.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 71.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000265849",
+            "target": "stringdb:9606.ENSP00000269571",
+            "score": 54.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000269305",
+            "score": 44.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 70.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 75.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 74.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 76.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 93.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 97.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 81.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 91.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 51.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 99.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 96.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 95.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 95.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 56.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 70.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 99.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000314505",
+            "score": 57.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 42.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 41.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000267430",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 97.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000399851",
+            "score": 41.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 90.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 93.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000306682",
+            "score": 88.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 63.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 47.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 88.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 70.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 64.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 67.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 97.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 66.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000269571",
+            "score": 93.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 84.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 69.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 67.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000357979",
+            "score": 59.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 47.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 83.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 72.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 87.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 74.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 46.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 86.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 47.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269305",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 45.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 91.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000278616",
+            "score": 74.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 45.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 42.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 40.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 77.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000269571",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 87.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 99.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000352408",
+            "score": 68.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 92.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 93.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 77.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 78.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000287647",
+            "score": 98.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000339637",
+            "score": 59.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 73.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000306682",
+            "score": 92.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 99.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 81.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000342924",
+            "score": 77.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 99.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000399851",
+            "score": 43.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 66.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 91.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000290295",
+            "score": 44.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 77.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000493555",
+            "score": 53.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 89.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 86.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 85.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 66.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 97.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 57.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 89.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000278616",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000314505",
+            "score": 40.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 96.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000493555",
+            "score": 43.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 52.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000289081",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 61.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000342924",
+            "score": 44.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 51.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 93.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 93.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 86.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 83.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 42.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 79.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 91.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000287647",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 73.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 65.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 91.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 47.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 65.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 54.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000324856",
+            "score": 45.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000323099",
+            "score": 65.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 64.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 47.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 92.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 57.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 65.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 82.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 88.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 55.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 80.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 40.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000289081",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 75.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000290295",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 40.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000290295",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 50.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000290295",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 58.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000290295",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 50.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000290295",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 40.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000306682",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 59.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000290295",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 59.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000306682",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 46.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000306682",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 62.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000306682",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 91.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000306682",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 43.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000306682",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 40.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000314505",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 65.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000314505",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 61.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 62.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 79.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 85.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 65.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 70.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 89.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 57.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 97.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 82.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 72.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 62.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000323099",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 66.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 67.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 74.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 40.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 68.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 83.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000325863",
+            "score": 50.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 72.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 45.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 59.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 69.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 52.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000324856",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 97.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 94.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 90.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 84.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000336701",
+            "score": 93.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000352408",
+            "score": 68.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 96.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 96.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000399851",
+            "score": 43.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 42.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 91.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 99.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 57.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 43.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 98.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 75.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 43.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000325863",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 90.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 64.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 62.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 77.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 41.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 78.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000337088",
+            "score": 52.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 60.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 43.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 71.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 70.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 88.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000337088",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 48.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000347232",
+            "score": 85.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000343412",
+            "score": 45.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000336701",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 98.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000337088",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 53.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000337088",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 45.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000337088",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 64.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000337088",
+            "target": "stringdb:9606.ENSP00000351015",
+            "score": 68.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000337088",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 51.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000337088",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 51.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000339637",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 94.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000342924",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 40.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000342924",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 84.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000342924",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 64.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000342924",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 76.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000342924",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 47.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000342924",
+            "target": "stringdb:9606.ENSP00000357979",
+            "score": 40.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000343412",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 72.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000343412",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 96.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000343412",
+            "target": "stringdb:9606.ENSP00000352408",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000343412",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000343412",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000343412",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 50.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000343412",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 71.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000343412",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 97.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 82.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 87.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 43.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 74.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 97.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 86.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 59.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 93.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000352271",
+            "score": 78.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000351015",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 50.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000351015",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 61.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000351015",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 61.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000351015",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 75.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 75.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000347232",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 92.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000351015",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 87.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000351015",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 40.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000351015",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 87.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 52.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 74.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 98.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 98.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 59.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 66.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352271",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 95.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352408",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 65.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352408",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 84.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352408",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352408",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 71.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352408",
+            "target": "stringdb:9606.ENSP00000368100",
+            "score": 53.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000361021",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 41.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352408",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 63.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000352408",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000357979",
+            "target": "stringdb:9606.ENSP00000361021",
+            "score": 49.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000361021",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 75.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000361021",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 60.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000361021",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 87.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000368100",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 51.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000361021",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 81.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000361021",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 60.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000361021",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 82.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000368100",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000368100",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 72.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 65.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000368100",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 78.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000368100",
+            "target": "stringdb:9606.ENSP00000369497",
+            "score": 75.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000368100",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 85.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000368100",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000368100",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 72.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 98.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 96.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 72.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000493555",
+            "score": 56.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 57.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000369857",
+            "score": 75.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 98.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369857",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 54.1,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369497",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 98.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369857",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 41.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369857",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 50.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369857",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 72.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000372023",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369857",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369857",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 89.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369857",
+            "target": "stringdb:9606.ENSP00000372023",
+            "score": 79.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000369857",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 71.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000372023",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 53.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000372023",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 89.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000372023",
+            "target": "stringdb:9606.ENSP00000382628",
+            "score": 78.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000372023",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 93.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000372023",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 73.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000372023",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 78.5,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000382628",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000382628",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 42.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000382628",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 77.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000382628",
+            "target": "stringdb:9606.ENSP00000416739",
+            "score": 56.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000382628",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 95.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000382628",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 79.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000382628",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 73.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000416739",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 59.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000416739",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 40.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000416739",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 78.0,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000399851",
+            "target": "stringdb:9606.ENSP00000419665",
+            "score": 95.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000399851",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 46.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000399851",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 66.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000416739",
+            "target": "stringdb:9606.ENSP00000418960",
+            "score": 78.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000418960",
+            "target": "stringdb:9606.ENSP00000435506",
+            "score": 56.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000418960",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 95.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000418960",
+            "target": "stringdb:9606.ENSP00000419881",
+            "score": 92.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000418960",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000418960",
+            "target": "stringdb:9606.ENSP00000493555",
+            "score": 52.3,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000418960",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 69.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000419881",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 50.6,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000419665",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 53.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000419665",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 66.2,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000419881",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 90.4,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000493712",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 48.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000493555",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 48.8,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000419881",
+            "target": "stringdb:9606.ENSP00000466399",
+            "score": 99.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000435506",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 43.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000435506",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 61.9,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000466399",
+            "target": "stringdb:9606.ENSP00000493712",
+            "score": 88.7,
+            "type": "ppi"
+        },
+        {
+            "source": "stringdb:9606.ENSP00000466399",
+            "target": "stringdb:9606.ENSP00000500891",
+            "score": 78.3,
+            "type": "ppi"
+        }
+    ],
+    "header": {
+        "header": "Breast-Cancer",
+        "title": "Breast-Cancer",
+        "background": {
+            "backgroundColor": "#000",
+            "contrastText": "#FFF"
+        },
+        "icon": {
+            "src": "https://minio.dev.maayanlab.cloud/enrichr-kg/enrichr-kg.png",
+            "favicon": "https://minio.dev.maayanlab.cloud/enrichr-kg/enrichr-kg.png",
+            "faviconTitle": "Breast-Cancer",
+            "alt": "Breast-Cancer",
+            "key": "Breast-Cancer_logo",
+            "width": 100,
+            "height": 60
+        },
+        "tabs": [
+            {
+                "endpoint": "/",
+                "label": "Term & Gene Search",
+                "type": "page",
+                "component": "KnowledgeGraph",
+                "props": {
+                    "init_function": "initialize_kg",
+                    "initial_query": {
+                        "start": "Gene",
+                        "start_term": "APOE",
+                        "start_field": "label"
+                    },
+                    "subheader": {
+                        "url_field": "filter",
+                        "query_field": "relation"
+                    }
+                }
+            }
+        ]
+    },
+    "footer": {
+        "style": {
+            "background": "#000",
+            "color": "#FFF"
+        },
+        "layout": [
+            [
+                {
+                    "component": "logo",
+                    "props": {
+                        "src": "https://minio.dev.maayanlab.cloud/enrichr-kg/enrichr-kg.png",
+                        "alt": "enrichr-kg",
+                        "title": "Enrichr-KG",
+                        "color": "inherit",
+                        "size": "small"
+                    }
+                },
+                {
+                    "component": "github",
+                    "props": {
+                        "code": "https://github.com/MaayanLab/enrichr-kg",
+                        "issues": "https://github.com/MaayanLab/enrichr-kg-issues/issues/new"
+                    }
+                }
+            ],
+            [
+                {
+                    "component": "icon",
+                    "props": {
+                        "type": "icon",
+                        "key": "lab_icon",
+                        "src": "https://minio.dev.maayanlab.cloud/enrichr-kg/maayanlab.png",
+                        "alt": "MaayanLab",
+                        "href": "https://labs.icahn.mssm.edu/maayanlab/",
+                        "height": 60,
+                        "width": 150
+                    }
+                }
+            ],
+            [
+                {
+                    "component": "icon",
+                    "props": {
+                        "type": "icon",
+                        "key": "center_icon",
+                        "src": "https://minio.dev.maayanlab.cloud/enrichr-kg/bioinformatics.png",
+                        "alt": "COB",
+                        "href": "https://icahn.mssm.edu/research/bioinformatics",
+                        "height": 60,
+                        "width": 150
+                    }
+                }
+            ]
+        ],
+        "footer_text": "<span style='color:white'>Please acknowledge Enrichr-KG in your publications by citing the following reference:<br><a style='color: cyan' href='https://doi.org/10.1093/nar/gkad393'>Evangelista JE, Xie Z, Marino GB, Nguyen N, Clarke DJB, Ma'ayan A. Enrichr-KG: bridging enrichment analysis across multiple libraries. Nucleic Acids Res. 2023 May 11:gkad393. doi: 10.1093/nar/gkad393. PMID: 37166973.</a></span>"
+    },
+    "ui_theme": "enrichr_kg_theme"
 }
